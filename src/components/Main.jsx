@@ -10,17 +10,26 @@ const Main = () => {
   const [personajes, setPersonajes] = useState([]);
 
   const getPersonajes = async () => {
-    const resultado = await axios.get(BASE_URL);
-    const resp = resultado.data.results;
-    setPersonajes(resp);
+    try {
+      const resultado = await axios.get(BASE_URL);
+      const resp = resultado.data.results;
+      setPersonajes(resp);
+    } catch (error) {
+      console.log('error');
+    }
   };
 
-  const [buscarNombre, setBuscarNombre] = useState('');
+  const [buscarNombre, setBuscarNombre] = useState({ name: '' });
 
-  const handleBuscado = async () => {
-    const resultado = await axios.get(BUSCAR_NOMBRE + buscarNombre);
-    const buscado = resultado.data.results;
-    setPersonajes(buscado);
+  const getBusqueda = async (e) => {
+    e.preventDefault();
+    try {
+      const resultado = await axios.get(BUSCAR_NOMBRE + buscarNombre);
+      const buscado = resultado.data.results;
+      setPersonajes(buscado);
+    } catch (error) {
+      console.log('error');
+    }
   };
 
   useEffect(() => {
@@ -28,22 +37,25 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    handleBuscado();
+    getBusqueda();
   }, []);
 
   return (
-    <div>
+    <div className='px-auto'>
       <Row>
         <Col>
-          <input
-            type='text'
-            onChange={(e) => {
-              setBuscarNombre(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <button onClick={handleBuscado}>apretar</button>
+          {}
+          <form action=''>
+            <input
+              type='text'
+              onChange={(e) => {
+                setBuscarNombre(e.target.value);
+              }}
+            />
+            <br />
+            <br />
+            <button onClick={getBusqueda}>apretar</button>
+          </form>
           <br />
           <br />
           <br />
@@ -51,8 +63,11 @@ const Main = () => {
       </Row>
       <Row>
         {personajes.map((personaje) => (
-          <Col key={personaje.id}>
-            <Card style={{ width: '18rem' }}>
+          <Col className='my-2' xs={3} key={personaje.id}>
+            <Card
+              className='mx-auto'
+              style={{ width: '22rem', minHeight: '100%' }}
+            >
               <Card.Img variant='top' src={personaje.image} />
               <Card.Body>
                 <Card.Title>{personaje.name}</Card.Title>
