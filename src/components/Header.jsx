@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const Header = () => {
   return (
-    <div>Header</div>
-  )
-}
+    <div>
+      <h1>Consumiendo Rick & Morty api</h1>
+      <br />
+      <br />
+    </div>
+  );
+};
 
-export default Header
+export default Header;

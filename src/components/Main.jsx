@@ -54,7 +54,7 @@ const Main = () => {
             />
             <br />
             <br />
-            <button onClick={getBusqueda}>apretar</button>
+            <button onClick={getBusqueda}>Buscar</button>
           </form>
           <br />
           <br />
